@@ -40,15 +40,15 @@
 </head>
 
 <body>
-    <div class="mazeContainer">
+    <div id="mazeContainer">
 
     </div>
     <div class="controls">
-        <button>Delete</button>
-        <button>Obstacle</button>
-        <button>Set Start</button>
-        <button>Set End</button>
-        <button>Start Pathfinding</button>
+        <button data-mode="0" class="mode-button">Delete</button>
+        <button data-mode="1" class="mode-button">Obstacle</button>
+        <button data-mode="2" class="mode-button">Set Start</button>
+        <button data-mode="3" class="mode-button">Set End</button>
+        <button id="start" >Start Pathfinding</button>
     </div>
     <script src="index.js"></script>
 </body>
