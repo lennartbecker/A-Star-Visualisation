@@ -1,10 +1,11 @@
-import astar from './pathfinding';
-
+import {astar} from './pathfinding.js';
 let controlmode = 0;
 let mazeHeight = 20;
 let mazeWidth = 20;
-
+let start = [0,0];
+let end = [12,12];
 let mazecontainer = document.getElementById('mazeContainer');
+
 let maze = generateMaze(mazeHeight, mazeWidth);
 let dommaze = generateDomMaze(maze);
 
@@ -51,7 +52,7 @@ function handleEdit(field) {
         field.classList.remove("obstacle");
         field.classList.remove("start");
         field.classList.remove("end");
-
+        maze[position.y][position.x] = 0;
     }
     if (controlmode == 1) {
         field.classList.add("obstacle");
@@ -71,11 +72,21 @@ function handleEdit(field) {
 
 document.querySelectorAll('.mode-button').forEach(button => {
     button.addEventListener("click", (ev) => {
-        console.log(ev.target)
         controlmode = ev.target.dataset.mode;
     })
 })
 
+document.querySelector('#start').addEventListener('click', displayPath)
+
+function displayPath() {
+    removeClassFromAll("path");
+    let route = astar(maze, start, end);
+    route.forEach(field => {
+        let y = field[0];
+        let x = field[1];
+        dommaze[y][x].classList.add("path");
+    })
+}
 function removeClassFromAll(className) {
     dommaze.forEach(row => {
         row.forEach(field => {
