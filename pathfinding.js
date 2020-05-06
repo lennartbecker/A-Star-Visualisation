@@ -27,7 +27,7 @@ function astar(maze, start, end) {
         waitingList.splice(waitingList.indexOf(currentNode), 1); //Entferne es aus der warteliste
         closedList.push(currentNode); //Füge es zur Closedliste hinzu
 
-        let neighbors = getNeighborPositions(currentNode);
+        let neighbors = getNeighborPositions(currentNode, maze);
         neighbors.forEach(neighbor => { //Für jedes der Angrenzenden Quadrate
             if (closedList.find(listnode => listnode.position[0] == neighbor[0] && listnode.position[1] == neighbor[1])) {
                 // console.log("In closed list")
@@ -59,7 +59,7 @@ function astar(maze, start, end) {
     return endnodeArray;
 }
 
-function getNeighborPositions(node) {
+function getNeighborPositions(node, maze) {
     const neighbors = [
         [node.position[0] + 1, node.position[1]],
         [node.position[0] - 1, node.position[1]],
