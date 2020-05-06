@@ -1,24 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A* Visualizer</title>
     <style>
-        
+        .field {
+            width: 50px;
+            height: 50px;
+            border: 1px solid red;
+        }
+
+        .field:hover {
+            background-color: aqua;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .obstacle {
+            background-color: grey;
+        }
+
+        .path {
+            background-color: green;
+        }
+
+        .start {
+            background-color: blue;
+        }
+
+        .end {
+            background-color: yellow;
+        }
     </style>
 </head>
+
 <body>
-    <div class="mazeContainer">
+    <div id="mazeContainer">
 
     </div>
     <div class="controls">
-        <button>Delete</button>
-        <button>Obstacle</button>
-        <button>Set Start</button>
-        <button>Set End</button>
-        <button>Start Pathfinding</button>
+        <button data-mode="0" class="mode-button">Delete</button>
+        <button data-mode="1" class="mode-button">Obstacle</button>
+        <button data-mode="2" class="mode-button">Set Start</button>
+        <button data-mode="3" class="mode-button">Set End</button>
+        <button id="start" >Start Pathfinding</button>
     </div>
     <script src="index.js"></script>
 </body>
+
 </html>
