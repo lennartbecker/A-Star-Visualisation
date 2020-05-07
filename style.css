@@ -50,14 +50,13 @@ html, body {
 button {
     display: inline-block;
     margin: 0;
-    padding: 0.75rem 1rem;
     background-color: transparent;
-    /* background: linear-gradient(90deg, #8E2DE2,#4A00E0); */
     border: 2px solid white;
     border-radius: 2px;
     margin: 4px;
     color: white;
+    cursor: pointer;
 }
-.button:hover {
-    opacity: 0.85;
+button:hover {
+    background-color: #313131;
 }
