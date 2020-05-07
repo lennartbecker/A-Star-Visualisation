@@ -1,6 +1,4 @@
 import { astar } from './pathfinding.js';
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
 let controlmode = 0;
 let fieldSize = 30;
 
