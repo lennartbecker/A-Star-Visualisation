@@ -28,13 +28,28 @@ function generateDomMaze(maze) {
         let rowDiv = document.createElement("div");
         rowDiv.classList.add("row");
         rowDiv.id = `row-${i}`
+        rowDiv.draggable = false;
         for (let j = 0; j < maze[i].length; j++) { //Width
             let field = document.createElement("div");
             field.dataset.x = j;
             field.dataset.y = i;
             field.classList.add("field");
-            field.addEventListener("click", () => {
+            field.draggable = false;
+            field.addEventListener("mousedown", () => {
+                console.log("Clicked")
+                if (controlmode == 0) {
+                    controlmode = 1;
+                }
                 handleEdit(field)
+            })
+            field.addEventListener("mouseup", () => {
+                console.log("mouseup")
+                controlmode = 0;
+            })
+            field.addEventListener("mouseover", (ev) => {
+                if (controlmode == 1) {
+                    handleEdit(field)
+                }
             })
             rowDiv.appendChild(field);
             domrow.push(field);
@@ -46,12 +61,11 @@ function generateDomMaze(maze) {
 }
 
 function handleEdit(field) {
-    console.log(field)
     let position = {
         x: parseInt(field.dataset.x),
         y: parseInt(field.dataset.y)
     }
-    if (controlmode == 0) {
+    if (controlmode == 1) {
         field.classList.remove("path");
 
         if (maze[position.y][position.x] == 0) {
