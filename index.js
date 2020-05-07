@@ -1,9 +1,12 @@
-import {astar} from './pathfinding.js';
+import { astar } from './pathfinding.js';
 let controlmode = 0;
-let mazeHeight = 20;
-let mazeWidth = 20;
-let start = [0,0];
-let end = [12,12];
+let fieldSize = 30;
+
+let mazeHeight = calculateMazeDimensions().height;
+let mazeWidth = calculateMazeDimensions().width;
+
+let start = [0, 0];
+let end = [12, 12];
 let mazecontainer = document.getElementById('mazeContainer');
 
 let maze = generateMaze(mazeHeight, mazeWidth);
@@ -49,24 +52,28 @@ function handleEdit(field) {
         y: parseInt(field.dataset.y)
     }
     if (controlmode == 0) {
-        field.classList.remove("obstacle");
-        field.classList.remove("start");
-        field.classList.remove("end");
-        maze[position.y][position.x] = 0;
+        field.classList.remove("path");
+
+        if (maze[position.y][position.x] == 0) {
+            field.classList.add("obstacle");
+            maze[position.y][position.x] = 1;
+        } else {
+            field.classList.remove("obstacle");
+            maze[position.y][position.x] = 0;
+        }
     }
-    if (controlmode == 1) {
-        field.classList.add("obstacle");
-        maze[position.y][position.x] = 1;
-    }
+
     if (controlmode == 2) { //Set Start
         removeClassFromAll("start");
         field.classList.add("start");
         start = [position.y, position.x];
+        controlmode = 0;
     }
     if (controlmode == 3) { //Set End
         removeClassFromAll("end");
         field.classList.add("end");
         end = [position.y, position.x];
+        controlmode = 0;
     }
 }
 
@@ -93,4 +100,11 @@ function removeClassFromAll(className) {
             field.classList.remove(className)
         })
     })
+}
+
+function calculateMazeDimensions() {
+    let height = Math.round((window.innerHeight - (window.innerHeight / 100 * 6)) / fieldSize);
+    console.log(height)
+    let width = Math.round(window.innerWidth / fieldSize);
+    return { height, width }
 }

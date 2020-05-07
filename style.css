@@ -1,11 +1,17 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1d;
+    height: 100%;
+}
 .field {
     width: 30px;
     height: 30px;
-    border: 1px solid red;
+    border: .01px solid white;
 }
 
 .field:hover {
-    background-color: aqua;
+    background-color: white;
 }
 
 .row {
@@ -14,35 +20,43 @@
 }
 
 .obstacle {
-    background-color: grey;
+    /* background-color: white; */
+    background: linear-gradient(#C9D6FF,#E2E2E2);
 }
 
 .path {
-    background-color: green;
+    /* background-color: green; */
+    background: linear-gradient(180deg, #11998e 5%,#38ef7d 150%);
+    /* background-color: #38ef7d; */
 }
 
 .start {
-    background-color: blue;
+    /* background-color: #03bafc; */
+    background: linear-gradient(#00B4DB, #0083B0);
 }
 
 .end {
-    background-color: yellow;
+    /* background-color: #ff5cef; */
+    background: linear-gradient(#f953c6,#b91d73);
 }
 
 .controls {
     display: flex;
     flex-direction: row;
-    min-height: 3vh;
+    height: 6vh;
+    justify-content: center;
 }
 
 button {
     display: inline-block;
     margin: 0;
     padding: 0.75rem 1rem;
-    background-color: #1fa3ec;
-    border: 0px;
-    border-radius: 5px;
+    background-color: transparent;
+    /* background: linear-gradient(90deg, #8E2DE2,#4A00E0); */
+    border: 2px solid white;
+    border-radius: 2px;
     margin: 4px;
+    color: white;
 }
 .button:hover {
     opacity: 0.85;
