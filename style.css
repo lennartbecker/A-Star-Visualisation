@@ -29,6 +29,9 @@ html, body {
 .waiting {
     background-color: red;
 }
+.closed {
+    background-color: purple;
+}
 .start {
     background: linear-gradient(#00B4DB, #0083B0);
 }

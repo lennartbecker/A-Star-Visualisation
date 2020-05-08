@@ -36,7 +36,7 @@ function generateDomMaze(maze) {
             let field = document.createElement("div");
             field.dataset.x = j;
             field.dataset.y = i;
-            // field.innerHTML = `X:${j}, Y:${i}`;
+            field.innerHTML = `X:${j}, Y:${i}`;
             field.classList.add("field");
             field.draggable = false;
             let fieldBackground = document.createElement("div");
@@ -106,9 +106,10 @@ document.querySelector('#start').addEventListener('click', displayPath);
 document.querySelector('#clear').addEventListener('click', clearMaze);
 function displayPath() {
     if (start && end) {
+        let endnode;
         removeClassFromAll("path");
         if (stepResults) {
-            stepResults = astep(maze, start, end, stepResults.waitingList);
+            stepResults = astep(maze, start, end, stepResults);
         } else {
             stepResults = astep(maze, start, end);
         }
@@ -117,6 +118,20 @@ function displayPath() {
             let x = field.position[1];
             dommaze[y][x].classList.add("waiting");
         })
+        stepResults.closedList.forEach(field => {
+            let y = field.position[0];
+            let x = field.position[1];
+            dommaze[y][x].classList.add("closed");
+        })
+        if (stepResults.foundPath) {
+            endnode = stepResults.currentNode
+            while (endnode.parent) {
+                let y = endnode.position[0];
+                let x = endnode.position[1];
+                dommaze[y][x].classList.add("path");
+                endnode = endnode.parent;
+            }
+        }
         // while(stepResults.waitingList.length != 0 || stepResults.foundPath == false) {
         //     // console.log(stepResults.closedList)
         //     stepResults = astep(maze, start, end, stepResults.waitingList)
