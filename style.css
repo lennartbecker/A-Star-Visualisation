@@ -26,6 +26,9 @@ html, body {
 .path {
   background: linear-gradient(180deg, #11998e 5%,#38ef7d 150%);
 }
+.waiting {
+    background-color: red;
+}
 .start {
     background: linear-gradient(#00B4DB, #0083B0);
 }

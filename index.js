@@ -1,9 +1,10 @@
-import { astar } from './pathfinding.js';
+import { astar, astep } from './pathfinding.js';
 let controlmode = 0;
 let fieldSize = 30;
 
 let mazeHeight = calculateMazeDimensions().height;
 let mazeWidth = calculateMazeDimensions().width;
+let stepResults;
 // let mazeHeight = 5;
 // let mazeWidth = 5;
 let start, end;
@@ -106,16 +107,30 @@ document.querySelector('#clear').addEventListener('click', clearMaze);
 function displayPath() {
     if (start && end) {
         removeClassFromAll("path");
-        console.log(maze)
-        let route = astar(maze, start, end);
-        route.splice(0, 1);
-        route.reverse().forEach((field, index) => {
-            let y = field[0];
-            let x = field[1];
-            setTimeout(() => {
-                dommaze[y][x].classList.add("path");
-            }, 50 * index);
+        if (stepResults) {
+            stepResults = astep(maze, start, end, stepResults.waitingList);
+        } else {
+            stepResults = astep(maze, start, end);
+        }
+        stepResults.waitingList.forEach(field => {
+            let y = field.position[0];
+            let x = field.position[1];
+            dommaze[y][x].classList.add("waiting");
         })
+        // while(stepResults.waitingList.length != 0 || stepResults.foundPath == false) {
+        //     // console.log(stepResults.closedList)
+        //     stepResults = astep(maze, start, end, stepResults.waitingList)
+        // }
+        console.log(stepResults)
+        // let route = astar(maze, start, end);
+        // route.splice(0, 1);
+        // route.reverse().forEach((field, index) => {
+        //     let y = field[0];
+        //     let x = field[1];
+        //     setTimeout(() => {
+        //         dommaze[y][x].classList.add("path");
+        //     }, 50 * index);
+        // })
     } else {
         Toastify({
             text: "Please set the start & endpoint",
@@ -140,7 +155,7 @@ function clearMaze() {
     console.log("Clearmaze")
     maze.forEach(row => {
         row.forEach((field, index) => {
-           row[index] = 0;
+            row[index] = 0;
         })
     })
     removeClassFromAll("start");
