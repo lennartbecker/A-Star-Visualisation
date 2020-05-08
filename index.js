@@ -106,6 +106,7 @@ document.querySelector('#clear').addEventListener('click', clearMaze);
 function displayPath() {
     if (start && end) {
         removeClassFromAll("path");
+        console.log(maze)
         let route = astar(maze, start, end);
         route.splice(0, 1);
         route.reverse().forEach((field, index) => {
@@ -138,8 +139,8 @@ function removeClassFromAll(className) {
 function clearMaze() {
     console.log("Clearmaze")
     maze.forEach(row => {
-        row.forEach(field => {
-            field = 0;
+        row.forEach((field, index) => {
+           row[index] = 0;
         })
     })
     removeClassFromAll("start");
