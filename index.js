@@ -119,7 +119,7 @@ function displayPath() {
     } else {
         Toastify({
             text: "Please set the start & endpoint",
-            duration: 22000,
+            duration: 2000,
             newWindow: true,
             gravity: "top", // `top` or `bottom`
             position: 'right', // `left`, `center` or `right`
