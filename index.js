@@ -36,7 +36,7 @@ function generateDomMaze(maze) {
             let field = document.createElement("div");
             field.dataset.x = j;
             field.dataset.y = i;
-            field.innerHTML = `X:${j}, Y:${i}`;
+            // field.innerHTML = `X:${j}, Y:${i}`;
             field.classList.add("field");
             field.draggable = false;
             let fieldBackground = document.createElement("div");
@@ -108,35 +108,36 @@ function displayPath() {
     if (start && end) {
         let endnode;
         removeClassFromAll("path");
-        if (stepResults) {
-            stepResults = astep(maze, start, end, stepResults);
-        } else {
-            stepResults = astep(maze, start, end);
-        }
-        stepResults.waitingList.forEach(field => {
-            let y = field.position[0];
-            let x = field.position[1];
-            dommaze[y][x].classList.add("waiting");
-        })
-        stepResults.closedList.forEach(field => {
-            let y = field.position[0];
-            let x = field.position[1];
-            dommaze[y][x].classList.add("closed");
-        })
-        if (stepResults.foundPath) {
-            endnode = stepResults.currentNode
-            while (endnode.parent) {
-                let y = endnode.position[0];
-                let x = endnode.position[1];
-                dommaze[y][x].classList.add("path");
-                endnode = endnode.parent;
+        removeClassFromAll("closed");
+        removeClassFromAll("waiting");
+        stepResults = astep(maze, start, end);
+        animatePath()
+        function animatePath() {
+            if (!stepResults.foundPath) {
+                stepResults.waitingList.forEach((field, index) => {
+                    let y = field.position[0];
+                    let x = field.position[1];
+                    dommaze[y][x].classList.add("waiting");
+                })
+                stepResults.closedList.forEach((field, index) => {
+                    let y = field.position[0];
+                    let x = field.position[1];
+                    dommaze[y][x].classList.add("closed");
+                    dommaze[y][x].classList.remove("waiting");
+                })
+                setTimeout(() => {
+                    stepResults = astep(maze, start, end, stepResults);
+                    animatePath()
+                }, 5);
+            } else {
+                stepResults.foundPath.reverse().forEach((field, index) => {
+                    setTimeout(() => {
+                        dommaze[field.y][field.x].classList.add("path")
+                    }, index * 50);
+                })
             }
         }
-        // while(stepResults.waitingList.length != 0 || stepResults.foundPath == false) {
-        //     // console.log(stepResults.closedList)
-        //     stepResults = astep(maze, start, end, stepResults.waitingList)
-        // }
-        console.log(stepResults)
+
         // let route = astar(maze, start, end);
         // route.splice(0, 1);
         // route.reverse().forEach((field, index) => {
