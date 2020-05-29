@@ -186,22 +186,3 @@ function calculateMazeDimensions() {
     let width = Math.round(window.innerWidth / fieldSize);
     return { height, width }
 }
-
-function saveMaze() {
-    console.log("save")
-    localStorage.setItem("maze", JSON.stringify(maze));
-    localStorage.setItem("start", JSON.stringify(start));
-    localStorage.setItem("end", JSON.stringify(end));
-}
-
-function loadMaze() {
-    console.log("Load")
-    maze = JSON.parse(localStorage.getItem("maze"));
-    start = JSON.parse(localStorage.getItem("start"))
-    end = JSON.parse(localStorage.getItem("end"))
-    dommaze = generateDomMaze(maze);
-    console.log(maze)
-}
-
-document.querySelector("#save").addEventListener("click", saveMaze);
-document.querySelector("#load").addEventListener("click", loadMaze);
