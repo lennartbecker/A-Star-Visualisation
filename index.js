@@ -178,6 +178,8 @@ function clearMaze() {
     removeClassFromAll("end");
     removeClassFromAll("path");
     removeClassFromAll("obstacle");
+    removeClassFromAll("waiting");
+    removeClassFromAll("closed");
 }
 
 function calculateMazeDimensions() {
